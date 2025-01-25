@@ -19,16 +19,28 @@ else:
 cursor = db.cursor()
 
 def regitrar_venda():
-  pass
-  
+    pass
 
 
 def inserir_produto():
-  pass
+    nome = input("Nome do produto: ")
+    descricao = input("descrição do produto: ")
+    quantidade_disponivel = int(input("Quantidade inicial em estoque: "))
+    preco = float(input('preço do produto: '))
+    
+    cursor.execute(
+        "INSERT INTO produto (nome, descricao, quantidade_disponivel, preco) VALUES (%s, %s, %s, %s)",
+        (nome, descricao, quantidade_disponivel, preco)
+    )
+    db.commit()
+    print("\033[32mProduto inserido com sucesso!\033[m")
 
 
 def excluir_produto():
-  pass
+    produto_id = int(input("ID do produto a excluir: "))
+    cursor.execute("DELETE FROM produto WHERE id = %s", (produto_id,))
+    db.commit()
+    print("\033[32mProduto excluído com sucesso!\033[m")
 
 
 def consultar_produtos():
@@ -51,7 +63,7 @@ def menu():
   print("2 - Inserir novo produto")
   print("3 - Registrar Venda")
   print("4 - Excluir Produto")
-  print("4 - Atualizar produto")
+  print("5 - Atualizar produto")
   opc:int = int(input("-> "))
   return opc
 
@@ -61,15 +73,15 @@ def main():
     consultar_produtos()
   
   if opcao == 2:
-    pass
+    inserir_produto()
   
   if opcao == 3:
-    pass
+    regitrar_venda()
   
   if opcao == 4:
-    pass
+    excluir_produto()
   
   
 
-if "__name__" == "__main__":
+if __name__ == "__main__":
   main()
